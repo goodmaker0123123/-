@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>경제 동아리 모의투자</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <h1>모의 주식 투자</h1>
+            <div class="timer-box">
+                <span id="timer-display">02:00</span>
+            </div>
+            <button id="start-btn" onclick="startGame()">게임 시작</button>
+        </header>
+
+        <main class="stock-grid">
+            <div class="stock-card" id="card-A">
+                <div class="fluctuation" id="change-A">-</div>
+                <div class="stock-info">
+                    <h2 class="stock-name">A</h2>
+                    <p class="stock-price" id="price-A">50,000 ₩</p>
+                </div>
+                <div class="trade-actions">
+                    <button class="btn-buy" onclick="trade('buy', 'A')">구매</button>
+                    <button class="btn-sell" onclick="trade('sell', 'A')">
+                        판매 <span id="hold-A">(0)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stock-card" id="card-B">
+                <div class="fluctuation" id="change-B">-</div>
+                <div class="stock-info">
+                    <h2 class="stock-name">B</h2>
+                    <p class="stock-price" id="price-B">50,000 ₩</p>
+                </div>
+                <div class="trade-actions">
+                    <button class="btn-buy" onclick="trade('buy', 'B')">구매</button>
+                    <button class="btn-sell" onclick="trade('sell', 'B')">
+                        판매 <span id="hold-B">(0)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stock-card" id="card-C">
+                <div class="fluctuation" id="change-C">-</div>
+                <div class="stock-info">
+                    <h2 class="stock-name">C</h2>
+                    <p class="stock-price" id="price-C">50,000 ₩</p>
+                </div>
+                <div class="trade-actions">
+                    <button class="btn-buy" onclick="trade('buy', 'C')">구매</button>
+                    <button class="btn-sell" onclick="trade('sell', 'C')">
+                        판매 <span id="hold-C">(0)</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="stock-card" id="card-D">
+                <div class="fluctuation" id="change-D">-</div>
+                <div class="stock-info">
+                    <h2 class="stock-name">D</h2>
+                    <p class="stock-price" id="price-D">50,000 ₩</p>
+                </div>
+                <div class="trade-actions">
+                    <button class="btn-buy" onclick="trade('buy', 'D')">구매</button>
+                    <button class="btn-sell" onclick="trade('sell', 'D')">
+                        판매 <span id="hold-D">(0)</span>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer class="dashboard">
+            <div class="dash-item">
+                <span>현재 보유 금액</span>
+                <strong id="my-cash">500,000 ₩</strong>
+            </div>
+            <div class="dash-item">
+                <span>평가 손익 (초기자본 대비)</span>
+                <strong id="my-profit" class="neutral">+0</strong>
+            </div>
+        </footer>
+    </div>
+
+    <div id="end-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>투자 종료</h2>
+            <p>모든 주식이 자동 매도되었습니다.</p>
+            <div class="result-box">
+                <p>최종 보유 금액: <span id="final-balance">0</span> ₩</p>
+                <p>최종 순이익: <span id="final-profit">0</span> ₩</p>
+            </div>
+            <button onclick="closeModal()">닫기</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

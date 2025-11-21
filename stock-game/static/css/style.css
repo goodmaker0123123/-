@@ -1,0 +1,58 @@
+:root {
+    --bg-color: #f0f2f5;
+    --card-bg: #ffffff;
+    --primary-color: #333;
+    --red-color: #e0245e; /* 하락 */
+    --blue-color: #17bf63; /* 상승 (한국 주식장 기준: 빨강이 상승이지만, 편의상 글로벌 기준인 녹색/빨강 혹은 요청에 따라 조정 가능. 여기선 파랑=상승/빨강=하락 대신, 직관적인 빨강(상승)/파랑(하락) 한국식으로 갑니다) */
+    --up-color: #d60000;
+    --down-color: #0051c7;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Noto Sans KR', sans-serif; background-color: var(--bg-color); color: #333; height: 100vh; display: flex; flex-direction: column; }
+
+.container { max-width: 800px; margin: 0 auto; width: 100%; height: 100%; display: flex; flex-direction: column; padding: 20px; }
+
+/* Header */
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: #fff; padding: 15px; border-radius: 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.header h1 { font-size: 1.2rem; font-weight: 700; }
+.timer-box { font-size: 2rem; font-weight: bold; color: #444; font-variant-numeric: tabular-nums; }
+#start-btn { background: #333; color: #fff; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+#start-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+/* Grid */
+.stock-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; flex: 1; }
+@media (max-width: 600px) { .stock-grid { grid-template-columns: repeat(2, 1fr); } }
+
+/* Card */
+.stock-card { background: var(--card-bg); border-radius: 12px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; align-items: center; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.1s; text-align: center; }
+.stock-card:hover { transform: translateY(-2px); }
+
+.fluctuation { font-size: 0.9rem; font-weight: bold; margin-bottom: 10px; min-height: 1.2em; }
+.fluctuation.up { color: var(--up-color); }
+.fluctuation.down { color: var(--down-color); }
+
+.stock-name { font-size: 2.5rem; color: #ddd; margin-bottom: 5px; }
+.stock-price { font-size: 1.5rem; font-weight: 700; margin-bottom: 20px; }
+
+.trade-actions { width: 100%; display: flex; flex-direction: column; gap: 8px; }
+button { width: 100%; padding: 12px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; font-size: 1rem; }
+.btn-buy { background-color: #ffebee; color: var(--up-color); border: 1px solid var(--up-color); }
+.btn-buy:active { background-color: var(--up-color); color: #fff; }
+.btn-sell { background-color: #e3f2fd; color: var(--down-color); border: 1px solid var(--down-color); }
+.btn-sell:active { background-color: var(--down-color); color: #fff; }
+
+/* Dashboard */
+.dashboard { background: #333; color: #fff; padding: 20px; border-radius: 12px; display: flex; justify-content: space-around; margin-top: 20px; }
+.dash-item { display: flex; flex-direction: column; align-items: center; }
+.dash-item span { font-size: 0.8rem; opacity: 0.8; margin-bottom: 5px; }
+.dash-item strong { font-size: 1.5rem; }
+#my-profit.plus { color: #ff6b6b; }
+#my-profit.minus { color: #4dabf7; }
+
+/* Modal */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center; z-index: 100; }
+.modal.hidden { display: none; }
+.modal-content { background: white; padding: 30px; border-radius: 16px; text-align: center; width: 80%; max-width: 400px; }
+.result-box { margin: 20px 0; background: #f9f9f9; padding: 15px; border-radius: 8px; }
+.result-box p { margin: 5px 0; font-size: 1.1rem; }

@@ -1,0 +1,7 @@
+# Python Environment Files
+__pycache__/
+*.pyc
+venv/
+
+# Specific to Flask/Logs
+*.log
